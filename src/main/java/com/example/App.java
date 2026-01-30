@@ -8,13 +8,13 @@ public class App {
     private static final Logger LOGGER = Logger.getLogger(App.class.getName());
 
     public static void main(String[] args) throws Exception {
+        execute(new Calculator(), new UserService());
+    }
 
-        Calculator calc = new Calculator();
-
+    public static void execute(Calculator calc, UserService service) throws Exception {
         int result = calc.calculate(10, 5, "add");
         LOGGER.log(Level.INFO, "Result: {0}", result);
 
-        UserService service = new UserService();
         service.findUser("admin");
         service.deleteUser("admin");
     }
