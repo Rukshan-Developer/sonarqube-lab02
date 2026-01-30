@@ -2,33 +2,25 @@ package main.java.com.example;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class UserService {
 
+    private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
+
     public void findUser(String username) throws SQLException {
-        String query = "SELECT name FROM users WHERE name = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement st = conn.prepareStatement(query)) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/db", "root", DB_PASSWORD);
+             java.sql.PreparedStatement st = conn.prepareStatement("SELECT id, name, email FROM users WHERE name = ?")) {
             st.setString(1, username);
             st.executeQuery();
         }
     }
 
     public void deleteUser(String username) throws SQLException {
-        String query = "DELETE FROM users WHERE name = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement st = conn.prepareStatement(query)) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/db", "root", DB_PASSWORD);
+             java.sql.PreparedStatement st = conn.prepareStatement("DELETE FROM users WHERE name = ?")) {
             st.setString(1, username);
-            st.executeUpdate();
+            st.execute();
         }
-    }
-
-    protected Connection getConnection() throws SQLException {
-        String url = "jdbc:mysql://localhost/db";
-        String user = "root";
-        String password = System.getenv("DB_PASSWORD");
-        return DriverManager.getConnection(url, user, password);
     }
 }
