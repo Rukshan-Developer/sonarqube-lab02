@@ -17,11 +17,9 @@ public class Calculator {
         }
 
         switch (op) {
-            case OP_ADD:
-            case OP_ADD_AGAIN:
+            case OP_ADD, OP_ADD_AGAIN:
                 return a + b;
-            case OP_SUB:
-            case OP_SUB_AGAIN:
+            case OP_SUB, OP_SUB_AGAIN:
                 return a - b;
             case OP_MUL:
                 return a * b;
