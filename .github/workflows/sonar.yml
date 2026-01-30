@@ -31,6 +31,8 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: Build with Maven
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: mvn -B verify
 
       - name: SonarCloud Scan

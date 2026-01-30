@@ -25,7 +25,7 @@ public class UserService {
         }
     }
 
-    private Connection getConnection() throws SQLException {
+    protected Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost/db";
         String user = "root";
         String password = System.getenv("DB_PASSWORD");
